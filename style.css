@@ -1,11 +1,12 @@
 :root {
-  --bg: #f4f5f7;
+  --bg: #f0f3f8;
   --card: #ffffff;
-  --border: #dde1e7;
+  --border: #d5dce8;
   --text: #1a1d23;
   --text-muted: #6b7280;
-  --accent: #1d4ed8;
-  --accent-hover: #1e40af;
+  --accent: #5b7fa6;        /* SMS logo blue */
+  --accent-hover: #3f6088;
+  --accent-light: #e8eef6;
   --success: #15803d;
   --warn: #b45309;
   --danger: #b91c1c;
@@ -25,17 +26,34 @@ body {
 
 /* HEADER */
 header {
-  background: #0f172a;
-  color: #fff;
-  padding: 1.25rem 2rem;
+  background: #ffffff;
+  border-bottom: 3px solid var(--accent);
+  padding: .85rem 2rem;
   position: sticky;
   top: 0;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
 }
-.header-inner { max-width: 1000px; margin: 0 auto; }
-header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -.3px; }
-header .subtitle { font-size: .8rem; color: #94a3b8; margin-top: 2px; }
+.header-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.header-logo {
+  height: 60px;
+  width: auto;
+  flex-shrink: 0;
+}
+.header-text { display: flex; flex-direction: column; gap: 1px; }
+header h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -.3px;
+}
+header .subtitle { font-size: .78rem; color: var(--text-muted); font-weight: 500; }
 
 /* MAIN */
 main { max-width: 1000px; margin: 2rem auto; padding: 0 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
@@ -77,7 +95,7 @@ input[type="number"] {
   transition: border-color .15s;
   width: 100%;
 }
-input:focus { outline: none; border-color: var(--accent); background: #fff; }
+input:focus { outline: none; border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(91,127,166,.15); }
 
 /* FRAGILITY SELECTOR */
 .fragility-grid {
@@ -103,7 +121,7 @@ input:focus { outline: none; border-color: var(--accent); background: #fff; }
 .frag-card strong { font-size: .95rem; }
 .frag-card small { font-size: .72rem; color: var(--text-muted); }
 
-.frag-option input:checked + .frag-card { background: #eff6ff; border-color: var(--accent); }
+.frag-option input:checked + .frag-card { background: var(--accent-light); border-color: var(--accent); }
 
 .frag-card.low { border-top: 3px solid #22c55e; }
 .frag-card.medium { border-top: 3px solid #f59e0b; }
@@ -149,8 +167,11 @@ input:focus { outline: none; border-color: var(--accent); background: #fff; }
   padding-bottom: 1rem;
   border-bottom: 2px solid var(--border);
 }
-.quote-header h2 { font-size: 1.2rem; font-weight: 700; }
-.quote-header p { font-size: .85rem; color: var(--text-muted); margin-top: .25rem; }
+.quote-brand { display: flex; align-items: center; gap: 1rem; }
+.quote-logo { height: 64px; width: auto; }
+.quote-company { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--accent); margin-bottom: .2rem; }
+.quote-header h2 { font-size: 1.15rem; font-weight: 700; }
+.quote-header p { font-size: .82rem; color: var(--text-muted); margin-top: .2rem; }
 .quote-actions { display: flex; gap: .75rem; }
 
 .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
@@ -202,7 +223,7 @@ input:focus { outline: none; border-color: var(--accent); background: #fff; }
 .grand-total {
   margin-top: 1rem;
   padding: 1rem 1.25rem;
-  background: #0f172a;
+  background: var(--accent);
   color: #fff;
   border-radius: 8px;
   display: flex;
@@ -234,11 +255,11 @@ input:focus { outline: none; border-color: var(--accent); background: #fff; }
 
 /* PRINT */
 @media print {
-  header { position: static; background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  header { position: static; border-bottom: 3px solid var(--accent) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   #input-section { display: none !important; }
   .quote-actions { display: none !important; }
   body { background: white; }
   .card { box-shadow: none; border: none; }
   main { margin: 0; padding: 0; }
-  .grand-total { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .grand-total { background: var(--accent) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
