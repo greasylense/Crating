@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crate Builder & Estimator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <h1>Crate Builder &amp; Material Estimator</h1>
+      <p class="subtitle">Internal Estimating Tool</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- INPUT FORM -->
+    <section class="card" id="input-section">
+      <h2>Item Information</h2>
+      <div class="form-grid">
+        <div class="field full">
+          <label for="description">Item Description</label>
+          <input type="text" id="description" placeholder="e.g. Marble sculpture, CNC machine head, antique dresser" />
+        </div>
+
+        <div class="field">
+          <label for="length">Length (inches)</label>
+          <input type="number" id="length" min="1" placeholder="0" />
+        </div>
+        <div class="field">
+          <label for="width">Width (inches)</label>
+          <input type="number" id="width" min="1" placeholder="0" />
+        </div>
+        <div class="field">
+          <label for="height">Height (inches)</label>
+          <input type="number" id="height" min="1" placeholder="0" />
+        </div>
+        <div class="field">
+          <label for="weight">Weight (lbs)</label>
+          <input type="number" id="weight" min="1" placeholder="0" />
+        </div>
+
+        <div class="field full">
+          <label>Fragility Level</label>
+          <div class="fragility-grid">
+            <label class="frag-option" data-level="low">
+              <input type="radio" name="fragility" value="low" />
+              <span class="frag-card low">
+                <strong>Low</strong>
+                <small>Durable goods, machinery</small>
+              </span>
+            </label>
+            <label class="frag-option" data-level="medium">
+              <input type="radio" name="fragility" value="medium" checked />
+              <span class="frag-card medium">
+                <strong>Medium</strong>
+                <small>Electronics, furniture</small>
+              </span>
+            </label>
+            <label class="frag-option" data-level="high">
+              <input type="radio" name="fragility" value="high" />
+              <span class="frag-card high">
+                <strong>High</strong>
+                <small>Artwork, instruments</small>
+              </span>
+            </label>
+            <label class="frag-option" data-level="extreme">
+              <input type="radio" name="fragility" value="extreme" />
+              <span class="frag-card extreme">
+                <strong>Extreme</strong>
+                <small>Museum pieces, optics</small>
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <h2 style="margin-top:2rem">Pricing Settings</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label for="laborRate">Shop Labor Rate ($/hr)</label>
+          <input type="number" id="laborRate" value="85" min="1" />
+        </div>
+        <div class="field">
+          <label for="markup">Material Markup (%)</label>
+          <input type="number" id="markup" value="20" min="0" />
+        </div>
+        <div class="field">
+          <label for="clientName">Client Name (optional)</label>
+          <input type="text" id="clientName" placeholder="e.g. John Smith" />
+        </div>
+        <div class="field">
+          <label for="quoteNum">Quote # (optional)</label>
+          <input type="text" id="quoteNum" placeholder="e.g. Q-2024-001" />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-primary" id="calcBtn">Calculate Estimate</button>
+        <button class="btn-ghost" id="resetBtn">Reset</button>
+      </div>
+
+      <div id="error-msg" class="error-msg hidden"></div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="card hidden" id="results-section">
+
+      <!-- Quote Header -->
+      <div class="quote-header" id="quote-header">
+        <div>
+          <h2 id="quote-title">Crate Estimate</h2>
+          <p id="quote-meta"></p>
+        </div>
+        <div class="quote-actions">
+          <button class="btn-primary" onclick="window.print()">Print Quote</button>
+          <button class="btn-ghost" onclick="document.getElementById('results-section').classList.add('hidden')">Close</button>
+        </div>
+      </div>
+
+      <!-- Crate Specs -->
+      <div class="result-grid">
+        <div class="result-block">
+          <h3>Crate Specifications</h3>
+          <table class="spec-table">
+            <tbody id="spec-table-body"></tbody>
+          </table>
+        </div>
+
+        <div class="result-block">
+          <h3>Construction Notes</h3>
+          <ul id="construction-notes" class="notes-list"></ul>
+        </div>
+      </div>
+
+      <!-- Materials -->
+      <div class="result-block">
+        <h3>Materials List</h3>
+        <table class="materials-table">
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Qty / Amount</th>
+              <th>Unit Cost</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody id="materials-table-body"></tbody>
+          <tfoot id="materials-table-foot"></tfoot>
+        </table>
+      </div>
+
+      <!-- Labor + Quote -->
+      <div class="result-grid">
+        <div class="result-block">
+          <h3>Labor Estimate</h3>
+          <table class="spec-table">
+            <tbody id="labor-table-body"></tbody>
+          </table>
+        </div>
+
+        <div class="result-block quote-total-block">
+          <h3>Quote Summary</h3>
+          <table class="spec-table">
+            <tbody id="quote-table-body"></tbody>
+          </table>
+          <div class="grand-total" id="grand-total"></div>
+        </div>
+      </div>
+
+      <p class="quote-footer">This estimate is based on standard construction practices. Final pricing subject to site inspection and material availability. Valid for 30 days.</p>
+
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
